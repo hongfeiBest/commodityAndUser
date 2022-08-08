@@ -1,13 +1,5 @@
 package cn.hongfei.common.util;
 
-//import java.beans.Introspector;
-//import java.beans.PropertyDescriptor;
-//import java.lang.reflect.Method;
-//import java.sql.Timestamp;
-//import java.util.*;
-
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -16,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class CompareUtil {
+
+    //https://github.com/hongfeiBest/commodityAndUser.git
 
     /**
      * 比较两个实体属性值，返回一个boolean,true则表时两个对象中的属性值无差异

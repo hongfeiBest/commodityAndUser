@@ -9,7 +9,9 @@ import cn.hongfei.commodity.service.CommodityTypeService;
 import cn.hongfei.commodity.service.impl.CommodityServiceImpl;
 import cn.hongfei.common.response.entity.Response;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +28,7 @@ public class CommodityHelper {
      * @param commodityService    CommodityService
      * @return
      */
-    public Response list(String commodityTypeId, String name, CommodityService commodityService) {
+    public Response list(String commodityTypeId, String name,Integer current,Integer size, CommodityService commodityService) {
         QueryWrapper<Commodity> commodityQueryWrapper = new QueryWrapper<>();
         if (ObjectUtils.isNotEmpty(name)){
             commodityQueryWrapper.eq("name",name);
@@ -35,7 +37,10 @@ public class CommodityHelper {
             commodityQueryWrapper.eq("commodity_type_id",commodityTypeId);
         }
         List<Commodity> list = commodityService.list(commodityQueryWrapper);
-        return Response.successAndData(list);
+        //current：当前页，size：记录数量
+        Page<Commodity> commodityPage = new Page<>(current,size);
+        IPage<Commodity> page = commodityService.page(commodityPage, commodityQueryWrapper);
+        return Response.successAndData(page);
     }
 
     /**

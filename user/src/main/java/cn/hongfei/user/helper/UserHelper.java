@@ -71,7 +71,7 @@ public class UserHelper {
             System.out.println("session+userName" + session.getAttribute("userName"));
             return Response.successAndData("登录成功~~~");
         }
-        return Response.failedAndMessage("登录失败~~~");
+        return Response.FAILED();
     }
 
     /**

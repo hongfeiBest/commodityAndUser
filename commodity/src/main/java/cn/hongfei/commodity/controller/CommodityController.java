@@ -7,7 +7,6 @@ import cn.hongfei.commodity.service.BuyHistoryService;
 import cn.hongfei.commodity.service.CommodityTypeService;
 import cn.hongfei.commodity.service.impl.CommodityServiceImpl;
 import cn.hongfei.common.response.entity.Response;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,14 +34,14 @@ public class CommodityController {
     private CommodityTypeService commodityTypeService;
 
     /**
-     * 查询商品列表
+     * 查询商品列表(分页查询) current：当前页，size：记录数量
      * @param commodityTypeId  商品ID
      * @param name             商品名称
      * @return                 商品列表
      */
     @GetMapping("/list")
-    public Response list(@RequestParam(required = false) String commodityTypeId, @RequestParam(required = false) String name){
-        return commodityHelper.list(commodityTypeId,name,commodityService);
+    public Response list(@RequestParam(required = false) String commodityTypeId, @RequestParam(required = false) String name,@RequestParam(defaultValue = "1") Integer current,@RequestParam(defaultValue = "10") Integer size){
+        return commodityHelper.list(commodityTypeId,name,current,size,commodityService);
     }
 
     /**
@@ -60,9 +59,9 @@ public class CommodityController {
 //        commodity.setCreateUser(userName.toString());
         boolean save = commodityService.save(commodity);
         if (save){
-            return Response.successAndData("新增商品成功~~~");
+            return Response.successAndData("新增商品:"+commodity.getName()+"成功~~~");
         }
-        return Response.failedAndMessage("新增商品失败~~~");
+        return Response.failedAndMessage("新增商品:"+commodity.getName()+"失败~~~");
     }
 
     /**

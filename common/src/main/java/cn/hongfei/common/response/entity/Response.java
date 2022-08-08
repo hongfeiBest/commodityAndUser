@@ -5,6 +5,7 @@ import lombok.Data;
 
 /**
  * 统一处理返回类型
+ * java response返回数据
  */
 
 @Data
