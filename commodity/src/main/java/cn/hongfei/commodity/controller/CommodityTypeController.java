@@ -1,5 +1,6 @@
 package cn.hongfei.commodity.controller;
 
+import cn.hongfei.annotation.Log;
 import cn.hongfei.commodity.entity.CommodityType;
 import cn.hongfei.commodity.helper.CommodityTypeHelper;
 import cn.hongfei.commodity.service.impl.CommodityTypeServiceImpl;
@@ -26,6 +27,7 @@ public class CommodityTypeController {
     }
 
     @PostMapping("/add")
+    @Log(title = "新增商品类型")
     public Response add(@RequestBody CommodityType commodityType, HttpServletRequest request){
         Object userName = request.getSession().getAttribute("userName");
         if (ObjectUtils.isEmpty(userName)){

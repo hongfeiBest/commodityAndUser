@@ -1,6 +1,7 @@
 package cn.hongfei.commodity.controller;
 
 
+import cn.hongfei.annotation.Log;
 import cn.hongfei.commodity.entity.Commodity;
 import cn.hongfei.commodity.helper.CommodityHelper;
 import cn.hongfei.commodity.service.BuyHistoryService;
@@ -40,6 +41,7 @@ public class CommodityController {
      * @return                 商品列表
      */
     @GetMapping("/list")
+    @Log(title = "查询商品列表")
     public Response list(@RequestParam(required = false) String commodityTypeId, @RequestParam(required = false) String name,@RequestParam(defaultValue = "1") Integer current,@RequestParam(defaultValue = "10") Integer size){
         return commodityHelper.list(commodityTypeId,name,current,size,commodityService);
     }
@@ -51,12 +53,8 @@ public class CommodityController {
      * @return            success/failed
      */
     @PostMapping("/add")
+    @Log(title = "新增商品")
     public Response add(@RequestBody Commodity commodity, HttpServletRequest request){
-//        Object userName = request.getSession().getAttribute("userName");
-//        if (ObjectUtils.isEmpty(userName)){
-//            return Response.failedAndMessage("请先登录~~~");
-//        }
-//        commodity.setCreateUser(userName.toString());
         boolean save = commodityService.save(commodity);
         if (save){
             return Response.successAndData("新增商品:"+commodity.getName()+"成功~~~");
@@ -73,6 +71,7 @@ public class CommodityController {
      */
     @GetMapping("/buy")
     @Transactional
+    @Log(title = "购买商品")
     public Response buy(@RequestParam String userId,@RequestParam String commodityId,@RequestParam Integer commodityCount){
         return commodityHelper.buy(commodityService,buyHistoryService,commodityTypeService,redisTemplate,userId,commodityId,commodityCount);
     }

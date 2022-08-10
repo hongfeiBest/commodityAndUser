@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/login")
     public Response login(HttpServletRequest request, @RequestParam(value = "userName") String userName, @RequestParam(value = "passWord") String passWord){
-        return userHelper.login(request,userName,passWord,userService);
+        return userHelper.login(request,userName,passWord,userService,redisTemplate);
     }
 
     @PostMapping("/add")

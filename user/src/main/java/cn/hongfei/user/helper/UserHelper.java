@@ -59,7 +59,7 @@ public class UserHelper {
      * @param userService IService
      * @return
      */
-    public Response login(HttpServletRequest request, String userName, String passWord, UserServiceImpl userService) {
+    public Response login(HttpServletRequest request, String userName, String passWord, UserServiceImpl userService,StringRedisTemplate redisTemplate) {
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("login_name", userName).eq("password", passWord);
         int count = userService.count(userQueryWrapper);
@@ -67,6 +67,7 @@ public class UserHelper {
             HttpSession session = request.getSession();
             session.setAttribute("userName", userName);
             session.setAttribute("password", passWord);
+            redisTemplate.opsForValue().set("userName",userName,5000);
             System.out.println("session+name" + session.getAttributeNames());
             System.out.println("session+userName" + session.getAttribute("userName"));
             return Response.successAndData("登录成功~~~");
