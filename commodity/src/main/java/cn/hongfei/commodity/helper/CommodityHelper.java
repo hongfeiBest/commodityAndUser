@@ -94,6 +94,7 @@ public class CommodityHelper {
                 //新增商品购买记录
                 buyHistoryService.save(buyHistory);
 
+                //TODO
                 //向redis通道中发送消息，通知用户加积分
                 //通道名称：user_score
                 redisTemplate.convertAndSend("user_score", message);

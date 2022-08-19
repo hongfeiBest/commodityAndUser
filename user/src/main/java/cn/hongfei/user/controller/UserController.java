@@ -34,6 +34,12 @@ public class UserController {
         return UserHelper.add(user,userService);
     }
 
+    @PostMapping("/add2")
+    public User add2(@RequestBody User user){
+         UserHelper.add(user,userService);
+        return user;
+    }
+
     @GetMapping("/list")
     public Response list(@RequestParam(required = false,defaultValue = "0") int page, @RequestParam(required = false,defaultValue = "10")int limit){
         List list = UserHelper.list(userService, page, limit);

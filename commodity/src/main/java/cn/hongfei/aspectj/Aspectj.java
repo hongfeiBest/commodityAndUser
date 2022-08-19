@@ -28,6 +28,10 @@ public class Aspectj {
     }
 
 
+    /**
+     * 前置通知，校验是否登录
+     *
+     */
     @Before("commodityControllerAspect()")
     public void doLoginBefore(){
         System.out.println("==========执行commodityController前置通知===============");

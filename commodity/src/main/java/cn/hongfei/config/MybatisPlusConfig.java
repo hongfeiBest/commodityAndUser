@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 使用 baomidou.mybatisplus Page 的配置类
- * 分页器配置
+ *
+ * 添加myBatisPlus分页器配置类
  */
 @Configuration
 public class MybatisPlusConfig {
